@@ -371,13 +371,13 @@ Released under **Apache 2.0 License** for maximum accessibility and research use
 
 ### Citation
 ```bibtex
-@dataset{automath_text_v2_2025,
-    title = {AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset},
-    author = {Chao Li, Yifan Zhang},
-    year = {2025},
-    url = {OpenSQZ/AutoMathText-V2},
-    publisher = {Hugging Face},
-    note = {A comprehensive pretraining dataset with advanced deduplication and quality assessment}
+@misc{automathtext_v2_2025,
+  title        = {{AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset}},
+  author       = {Chao Li and Yifan Zhang},
+  year         = {2025},
+  publisher    = {Hugging Face},
+  url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
+  note         = {A 2.46T token multi-domain dataset with three-tier (exact, fuzzy, and semantic) deduplication and AI-powered quality assessment.}
 }
 ```
 
