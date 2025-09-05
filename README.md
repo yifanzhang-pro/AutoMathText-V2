@@ -338,29 +338,25 @@ Each domain is divided into **10 quality percentiles** (0-10, 10-20, ..., 90-100
 
 ### Language Distribution
 - **English**: ~70-80% of content
-- **Chinese**: ~15-20% of content 
+- **Chinese**: ~15-20% of content
 
+## 🔬 Technical Deep Dive
 
+For detailed technical documentation, including:
+- Complete processing pipeline specifications  
+- Deduplication algorithm details
+- Quality classifier training procedures
+- Contamination detection methodology
 
-*Detailed benchmark results and model checkpoints available in our technical report.*
+Please refer to our [Technical Documentation](https://github.com/yifanzhang-pro/AutoMathText-V2) and [GitHub Repository](https://github.com/yifanzhang-pro/AutoMathText-V2).
 
-## ⚠️ Considerations for Use
+## 🤝 Contributing
 
-### Social Impact
-This dataset aims to democratize access to high-quality training data for the ML community. By providing transparent processing methodologies and comprehensive documentation, we enable researchers and practitioners to build better language models while understanding the data characteristics that drive performance.
-
-### Known Limitations
-- **Code Content**: While present, code may be less prevalent than in specialized code datasets
-- **RefineCode Academic Restriction**: GitHub code from RefineCode dataset is restricted to academic research use only
-- **Formatting**: Some content may have suboptimal formatting compared to curated sources
-- **Bias**: Web-sourced content may contain biases present in online text
-- **Coverage**: Certain specialized domains may have limited representation
-
-### Bias Considerations
-- Filtering methods avoid over-reliance on similarity to "gold" sources
-- URL-level filtering reduces NSFW content but doesn't eliminate all harmful content
-- Geographic and linguistic biases may reflect web content distribution
-- Quality classifiers trained on diverse, representative samples
+We welcome contributions to improve dataset quality and processing techniques:
+- 🐛 **Bug Reports**: Issues with data quality or processing
+- 💡 **Feature Requests**: New data sources or processing improvements  
+- 📚 **Documentation**: Help improve our guides and examples
+- 🔬 **Research**: Collaborate on quality assessment and deduplication methods
 
 ## 📜 Licensing & Citation
 
@@ -380,21 +376,3 @@ Released under **Apache 2.0 License** for maximum accessibility and research use
   note         = {A 2.46T token multi-domain dataset with three-tier (exact, fuzzy, and semantic) deduplication and AI-powered quality assessment.}
 }
 ```
-
-## 🔬 Technical Deep Dive
-
-For detailed technical documentation including:
-- Complete processing pipeline specifications  
-- Deduplication algorithm details
-- Quality classifier training procedures
-- Contamination detection methodology
-
-Please refer to our [Technical Documentation](link-to-detailed-docs) and [GitHub Repository](link-to-code).
-
-## 🤝 Contributing
-
-We welcome contributions to improve dataset quality and processing techniques:
-- 🐛 **Bug Reports**: Issues with data quality or processing
-- 💡 **Feature Requests**: New data sources or processing improvements  
-- 📚 **Documentation**: Help improve our guides and examples
-- 🔬 **Research**: Collaborate on quality assessment and deduplication methods
