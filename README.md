@@ -366,7 +366,7 @@ We welcome contributions to improve dataset quality and processing techniques:
 ## 📜 Licensing & Citation
 
 ### License
-Released under **Apache 2.0 License** for maximum accessibility and research use. **Important Note**: The RefineCode component (GitHub repositories) within this dataset is restricted to **academic research use only**. 
+Released under **Apache 2.0 License** for maximum accessibility and research use. 
 
 ### Citation
 ```bibtex
