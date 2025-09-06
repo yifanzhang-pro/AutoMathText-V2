@@ -378,4 +378,11 @@ Released under **Apache 2.0 License** for maximum accessibility and research use
   url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
   note         = {A 2.46T token multi-domain dataset with three-tier (exact, fuzzy, and semantic) deduplication and AI-powered quality assessment.}
 }
+
+@article{zhang2025autonomous,
+  title={Autonomous Data Selection with Zero-shot Generative Classifiers for Mathematical Texts},
+  author={Zhang, Yifan and Luo, Yifan and Yuan, Yang and Yao, Andrew C},
+  journal={The 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025 Findings)},
+  year={2025}
+}
 ```
