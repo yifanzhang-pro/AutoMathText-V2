@@ -1,5 +1,10 @@
 # AutoMathText-V2
 
+[![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
+[![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-CCBYSA4.0-yellow.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
+[![Website](https://img.shields.io/badge/Project-Website-green)](https://github.com/yifanzhang-pro/AutoMathText-V2) 
+
 ## A Multi-Domain High-Quality Pretraining Dataset
 
 📊 **AutoMathText-V2** consists of **2.46 trillion tokens** of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a **three-tier deduplication pipeline** and **AI-powered quality assessment** to provide superior training data for large language models.
