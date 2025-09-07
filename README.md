@@ -1,4 +1,4 @@
-# 🚀 AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset
+# 🚀 AutoMathText-V2: An AI-Curated, Multi-Domain Pretraining Dataset for STEM
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
 [![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-CCBYSA4.0-yellow.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
@@ -380,7 +380,7 @@ Released under **Apache 2.0 License** for maximum accessibility and research use
 
 ```bibtex
 @misc{automathtext_v2_2025,
-  title        = {{AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset}},
+  title        = {{AutoMathText-V2: An AI-Curated, Multi-Domain Pretraining Dataset for STEM}},
   author       = {Chao Li and Yifan Zhang},
   year         = {2025},
   publisher    = {Hugging Face},
