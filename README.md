@@ -1,4 +1,4 @@
-# 🚀 AutoMathText-V2: A Massive AI-Curated STEM Pretraining Dataset
+# 🚀 AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset
 
 [![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
 [![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-AutoMathText-yellow.svg)](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)
@@ -380,7 +380,7 @@ Released under **AutoMathText Data Agreement for Model Training** (See [LICENSE]
 
 ```bibtex
 @misc{automathtext_v2_2025,
-  title        = {AutoMathText-V2: A Massive AI-Curated STEM Pretraining Dataset},
+  title        = {AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset},
   author       = {Chao Li and Yifan Zhang},
   year         = {2025},
   publisher    = {Hugging Face},
