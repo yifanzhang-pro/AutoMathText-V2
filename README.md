@@ -380,7 +380,7 @@ Released under **AutoMathText Data Agreement for Model Training** (See [LICENSE]
 ```bibtex
 @misc{automathtext_v2_2025,
   title        = {AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset},
-  author       = {Chao Li and Yifan Zhang},
+  author       = {Li, Chao and Zhang, Yifan and Yuan, Yang and Yao, Andrew C},
   year         = {2025},
   publisher    = {Hugging Face},
   url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
