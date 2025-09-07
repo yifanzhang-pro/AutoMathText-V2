@@ -342,8 +342,8 @@ Each domain is divided into **10 quality percentiles** (0-10, 10-20, ..., 90-100
 - **Custom sampling**: Select percentile ranges across multiple domains for balanced training
 
 ### Language Distribution
-- **English**: ~70-80% of content
-- **Chinese**: ~15-20% of content
+- **English**: ~95% of content
+- **Chinese**: ~5% of content
 
 ## 🔬 Technical Deep Dive
 
