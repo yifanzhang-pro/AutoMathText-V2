@@ -383,7 +383,7 @@ Released under **AutoMathText Data Agreement for Model Training** (See [LICENSE]
   author       = {Chao Li and Yifan Zhang},
   year         = {2025},
   publisher    = {Hugging Face},
-  url          = {[https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2](https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2)},
+  url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
   note         = {A 2.46T token multi-domain dataset with fine-grained deduplication and AI-powered quality assessment.}
 }
 
