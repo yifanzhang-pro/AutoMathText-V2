@@ -3,7 +3,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
 [![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-AutoMathText-yellow.svg)](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
-[![Website](https://img.shields.io/badge/Project-Website-green)](https://github.com/iiis-ai/AutoMathText-V2) 
+[![Website](https://img.shields.io/badge/Project-Website-green)](https://iiis-ai.github.io/AutoMathText-V2) 
 
 📊 **AutoMathText-V2** consists of **2.46 trillion tokens** of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a **three-tier deduplication pipeline** and **AI-powered quality assessment** to provide superior training data for large language models.
 
@@ -358,7 +358,7 @@ For detailed technical documentation, including:
   - Quality classifier training procedures
   - Contamination detection methodology
 
-Please refer to our [Technical Documentation](https://github.com/iiis-ai/AutoMathText-V2) and [GitHub Repository](https://github.com/iiis-ai/AutoMathText-V2).
+Please refer to our [Technical Documentation](https://iiis-ai.github.io/AutoMathText-V2) and [GitHub Repository](https://github.com/iiis-ai/AutoMathText-V2).
 
 ## 🤝 Contributing
 
