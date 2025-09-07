@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset</title>
+
+    <meta name="description" content="AutoMathText-V2 is a 2.46 trillion token high-quality, deduplicated STEM dataset, curated using a three-tier deduplication pipeline and AI-powered quality assessment.">
+    <meta name="keywords" content="AutoMathText-V2, Large Language Models, LLM, Pretraining Dataset, STEM, Mathematics, AI Data, Data Curation">
+    <meta property="og:title" content="AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset"/>
+    <meta property="og:description" content="AutoMathText-V2 consists of 2.46 trillion tokens of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data."/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/iiis-ai/AutoMathText-V2" />
+    <link rel="canonical" href="https://github.com/iiis-ai/AutoMathText-V2">
+    <link rel="icon" href="https://placehold.co/32x32/2774AE/FFFFFF?text=AutoMath" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]']],
+                macros: { RR: '\\mathbb{R}', NN: '\\mathbb{N}', CC: '\\mathbb{C}', ZZ: '\\mathbb{Z}', id: '\\mathrm{id}', comp: '\\circ', Prob: '\\mathcal{P}', MeasSpace: ['{(#1, \\mathscr{B}(#1))}', 1], SigmaAlg: ['{\\mathscr{B}(#1)}', 1], Borel: ['{\\mathscr{B}(#1)}', 1], Expect: '\\mathbb{E}', ProbSpace: ['{(\\Omega, \\mathcal{F}, \\mathbb{P})}', 0], Ind: '\\mathbf{1}', defeq: '\\triangleq', eqdef: '\\eqqcolon', dd: '\\mathrm{d}', deltaDirac: ['{\\delta_{#1}}', 1], powerset: ['{\\mathcal{P}(#1)}', 1], cat: ['{\\mathbf{#1}}', 1], Stoch: '\\cat{Stoch}', FinStoch: '\\cat{FinStoch}' }
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #004080; /* Lighter navy blue */
+            --accent-color: #CFB87C;
+            --main-bg: #FFFFFF; /* Brighter main background */
+            --content-bg: #F8F9FA; /* Light grey for content sections */
+            --text-main: #363636;
+            --text-on-primary: #FFFFFF;
+            --text-muted: #555;
+            --link-color: var(--primary-color);
+            --link-hover-color: var(--accent-color);
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--main-bg);
+            color: var(--text-main);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Sticky Navbar */
+        .navbar {
+            background-color: rgba(var(--primary-color-rgb), 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .navbar-brand a.navbar-item, .navbar-menu a.navbar-item {
+            color: var(--text-on-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .navbar-brand a.navbar-item:hover, .navbar-menu a.navbar-item:hover, .navbar-item.is-active {
+            background-color: transparent !important;
+            color: var(--accent-color) !important;
+        }
+        .navbar-burger {
+            color: var(--text-on-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-color);
+            color: var(--text-on-primary);
+        }
+        .hero .title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            color: var(--text-on-primary);
+            font-size: 3.5rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        .hero .subtitle.is-hero-subtitle {
+            color: var(--text-on-primary);
+            opacity: 0.9;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 1.5rem auto 2.5rem auto;
+        }
+        .hero .subtitle .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        .project-links {
+            margin-top: 2rem;
+        }
+        .project-links a {
+            color: var(--text-on-primary);
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .project-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Content Sections */
+        .section.content-section {
+            padding: 5rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section.content-section:nth-child(even) {
+             background-color: var(--content-bg);
+        }
+        .section.content-section:last-of-type {
+            border-bottom: none;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+        .content {
+            max-width: 960px; /* Wider content for tables */
+            margin: 0 auto;
+            color: var(--text-main);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .content a {
+            color: var(--link-color);
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(var(--link-color-rgb), 0.2);
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+        }
+        .content a:hover {
+            color: var(--link-hover-color);
+            border-bottom-color: var(--link-hover-color);
+        }
+        .content strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .content pre {
+            background-color: #282c34; /* Darker theme for code */
+            color: #abb2bf;
+            border-radius: 6px;
+            padding: 1.25em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        .content table.table {
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+        .content table th {
+            background-color: var(--primary-color);
+            color: var(--text-on-primary);
+        }
+        .content table code {
+            background-color: #eee;
+            color: var(--primary-color);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: var(--text-on-primary);
+            padding: 2rem 1.5rem;
+            border-top: 4px solid var(--accent-color);
+            margin-top: auto;
+        }
+        .footer .content p {
+            color: var(--text-on-primary);
+        }
+        .footer a {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+        .footer a:hover {
+            color: var(--text-on-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1023px) {
+            .navbar-menu {
+                background-color: rgba(var(--primary-color-rgb), 0.95);
+                backdrop-filter: blur(5px);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero .title { font-size: 2.5rem; }
+            .hero .subtitle.is-hero-subtitle { font-size: 1.1rem; }
+            .section.content-section { padding: 3rem 1rem; }
+            .section-title { font-size: 1.75rem; margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item is-size-5 has-text-weight-bold" href="#">AutoMathText-V2</a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="#features" class="navbar-item">Features</a>
+                    <a href="#composition" class="navbar-item">Composition</a>
+                    <a href="#pipeline" class="navbar-item">Pipeline</a>
+                    <a href="#usage" class="navbar-item">Usage</a>
+                    <a href="#structure" class="navbar-item">Structure</a>
+                    <a href="#citation" class="navbar-item">Citation</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero is-medium">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">AutoMathText-V2</h1>
+                <h2 class="subtitle is-hero-subtitle">
+                    A <span class="highlight">2.46 Trillion Token</span> AI-Curated STEM Pretraining Dataset
+                </h2>
+                <div class="project-links">
+                    <a href="https://arxiv.org/abs/2402.07625" target="_blank" rel="noopener noreferrer" aria-label="arXiv Paper"><i class="fas fa-graduation-cap"></i></a>
+                    <a href="https://github.com/iiis-ai/AutoMathText-V2" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face Dataset"><i class="fas fa-database"></i></a>
+                    <a href="#license" class="navbar-item" aria-label="License"><i class="fas fa-scroll"></i></a>
+                    <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" aria-label="Python 3.10+"><i class="fab fa-python"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="section content-section">
+            <div class="container">
+                <div class="content has-text-centered" style="max-width: 800px; margin: 0 auto;">
+                    <p class="is-size-5">
+                        📊 <strong>AutoMathText-V2</strong> consists of <strong>2.46 trillion tokens</strong> of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a <strong>three-tier deduplication pipeline</strong> and <strong>AI-powered quality assessment</strong> to provide superior training data for large language models.
+                    </p>
+                    <p class="is-size-5">
+                        Our dataset combines <strong>50+ premium data sources</strong> with advanced processing techniques including <strong>semantic deduplication</strong>, <strong>contamination detection</strong>, and <strong>intelligent text cleaning</strong> to deliver exceptional model performance across diverse domains.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">What makes AutoMathText-V2 special?</h2>
+                <div class="content" style="max-width: 800px; margin: 0 auto;">
+                    <ul>
+                        <li><strong>🔢 STEM Concentration</strong>: Specially optimized for STEM content (especially Math)</li>
+                        <li><strong>🔍 Triple Deduplication</strong>: Exact → Fuzzy (MinHash+LSH) → Semantic (GTE embeddings)</li>
+                        <li><strong>🤖 AI Quality Assessment</strong>: Qwen2-based classifier with multi-source score fusion</li>
+                        <li><strong>🧹 Advanced Text Cleaning</strong>: All text data was processed using <strong>Ultimate Data Cleaner v7.5.0.5</strong>, which provides robust, high-performance cleaning tailored for web-scraped and scientific data.</li>
+                        <li><strong>🛡️ Contamination Prevention</strong>: Automatic test set leak detection and removal</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="composition" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">Dataset Composition</h2>
+                <div class="content">
+                    <h3 class="subtitle is-4 has-text-centered">Token Distribution by Domain</h3>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="margin: 0 auto 2rem auto;">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th>Token Count</th>
+                                <th>Percentage</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>🏆 Nemotron CC High</strong></td>
+                                <td>1,468.3B</td>
+                                <td>59.7%</td>
+                                <td>High quality CommonCrawl data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🌐 DCLM</strong></td>
+                                <td>314.2B</td>
+                                <td>12.8%</td>
+                                <td>DCLM baseline web content</td>
+                            </tr>
+                            <tr>
+                                <td><strong>💻 RefineCode</strong></td>
+                                <td>279.4B</td>
+                                <td>11.4%</td>
+                                <td>GitHub repositories (Academic Use Only)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>⭐ Nemotron CC Medium-High</strong></td>
+                                <td>254.5B</td>
+                                <td>10.3%</td>
+                                <td>Medium-high quality CommonCrawl data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>📚 FineWeb Edu</strong></td>
+                                <td>117.4B</td>
+                                <td>4.8%</td>
+                                <td>Educational web content</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🌏 Chinese</strong></td>
+                                <td>112.18B</td>
+                                <td>4.6%</td>
+                                <td>Chinese general content</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🧠 Reasoning QA</strong></td>
+                                <td>86.2B</td>
+                                <td>3.5%</td>
+                                <td>Instruction-following and complex reasoning tasks</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🔢 Math Web</strong></td>
+                                <td>68.3B</td>
+                                <td>2.8%</td>
+                                <td>Mathematics and scientific content</td>
+                            </tr>
+                            <tr>
+                                <td><strong>📊 MegaMath</strong></td>
+                                <td>28.5B</td>
+                                <td>1.2%</td>
+                                <td>Specialized mathematical collections</td>
+                            </tr>
+                            <tr>
+                                <td><strong>🔄 Translation</strong></td>
+                                <td>1.61B</td>
+                                <td>0.1%</td>
+                                <td>English-Chinese translation pairs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td><strong>2,460.71B</strong></td>
+                                <td><strong>100%</strong></td>
+                                <td><strong>Complete dataset</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="subtitle is-4 has-text-centered" style="margin-top: 3rem;">🔥 Complete Data Sources by Domain (52 Premium Datasets)</h3>
+                    
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>📍 DCLM Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>DCLM-Baseline</td><td><code>DCLM/dclm-baseline-1.0</code></td><td>High-quality web content from DCLM</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>📚 FineWeb Edu Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>FineWeb-Edu</td><td><code>HuggingFaceFW/fineweb-edu</code></td><td>Educational web content (0-5 quality scale)</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>🌏 FineWeb Edu Chinese Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>FineWeb-Edu-Chinese</td><td><code>opencsg/Fineweb-Edu-Chinese-V2.1</code></td><td>Chinese educational content (3.4-5.0 scale)</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>🔢 Math Web Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>AutoMathText</td><td><code>math-ai/AutoMathText</code></td><td>Math/Code/ArXiv content with lm_q1q2_score</td></tr>
+                            <tr><td>FineMath</td><td><code>HuggingFaceTB/finemath</code></td><td>High-quality mathematics content (0-5 scale)</td></tr>
+                            <tr><td>Open-Web-Math-Pro</td><td><code>gair-prox/open-web-math-pro</code></td><td>Mathematical web pages</td></tr>
+                            <tr><td>InfiMM-WebMath-40B</td><td><code>Infi-MM/InfiMM-WebMath-40B</code></td><td>Multimodal mathematical content</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>🏆 Nemotron CC High Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>Nemotron-CC (High)</td><td><code>nvidia/nemotron-cc</code></td><td>High-quality CommonCrawl subset</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>⭐ Nemotron CC Medium-High Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>Nemotron-CC (Medium-High)</td><td><code>nvidia/nemotron-cc</code></td><td>Medium-high quality CommonCrawl subset</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>💻 RefineCode Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody><tr><td>RefineCode</td><td><code>m-a-p/RefineCode</code></td><td>GitHub repositories (Academic Use Only)</td></tr></tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>🧠 Reasoning QA Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>OPC-Annealing-Corpus</td><td><code>OpenCoder-LLM/opc-annealing-corpus</code></td><td>Code training corpus</td></tr>
+                            <tr><td>OPC-SFT-Stage1</td><td><code>OpenCoder-LLM/opc-sft-stage1</code></td><td>Instruction following data (stage 1)</td></tr>
+                            <tr><td>OPC-SFT-Stage2</td><td><code>OpenCoder-LLM/opc-sft-stage2</code></td><td>Instruction following data (stage 2)</td></tr>
+                            <tr><td>Magpie-Reasoning-V2-250K-CoT-QwQ</td><td><code>Magpie-Align/Magpie-Reasoning-V2-250K-CoT-QwQ</code></td><td>Chain-of-thought reasoning (QwQ)</td></tr>
+                            <tr><td>Magpie-Reasoning-V1-150K-CoT-QwQ</td><td><code>Magpie-Align/Magpie-Reasoning-V1-150K-CoT-QwQ</code></td><td>Chain-of-thought reasoning (QwQ)</td></tr>
+                            <tr><td>Magpie-Reasoning-V1-150K-CoT-Deepseek-R1-Llama-70B</td><td><code>Magpie-Align/Magpie-Reasoning-V1-150K-CoT-Deepseek-R1-Llama-70B</code></td><td>Advanced reasoning (DeepSeek-R1)</td></tr>
+                            <tr><td>Magpie-Reasoning-V2-250K-CoT-Deepseek-R1-Llama-70B</td><td><code>Magpie-Align/Magpie-Reasoning-V2-250K-CoT-Deepseek-R1-Llama-70B</code></td><td>Advanced reasoning (DeepSeek-R1)</td></tr>
+                            <tr><td>General-Instruction-Augmented-Corpora</td><td><code>instruction-pretrain/general-instruction-augmented-corpora</code></td><td>General instruction synthesis</td></tr>
+                            <tr><td>FT-Instruction-Synthesizer-Collection</td><td><code>instruction-pretrain/ft-instruction-synthesizer-collection</code></td><td>Fine-tuning instruction synthesis</td></tr>
+                            <tr><td>Code-Feedback-Filtered-Instruction</td><td><code>m-a-p/CodeFeedback-Filtered-Instruction</code></td><td>Code QA with feedback</td></tr>
+                            <tr><td>XCoder-80K</td><td><code>banksy235/XCoder-80K</code></td><td>Code instruction data</td></tr>
+                            <tr><td>Orca-Math-Word-Problems-200K</td><td><code>microsoft/orca-math-word-problems-200k</code></td><td>Math word problems</td></tr>
+                            <tr><td>Meta-Math-QA</td><td><code>meta-math/MetaMathQA</code></td><td>Mathematical QA dataset</td></tr>
+                            <tr><td>Numina-Math-CoT</td><td><code>AI-MO/NuminaMath-CoT</code></td><td>Math chain-of-thought</td></tr>
+                            <tr><td>Scale-Quest-Math</td><td><code>dyyyyyyyy/ScaleQuest-Math</code></td><td>Mathematical problem solving</td></tr>
+                            <tr><td>Calc-Ape210K</td><td><code>MU-NLPC/Calc-ape210k</code></td><td>Chinese math problems</td></tr>
+                            <tr><td>MathInstruct</td><td><code>TIGER-Lab/MathInstruct</code></td><td>Math instruction data</td></tr>
+                            <tr><td>MathScaleQA-2M</td><td><code>fdqerq22ds/MathScaleQA-2M</code></td><td>Large-scale math QA</td></tr>
+                            <tr><td>Gretel-Math-GSM8K-V1</td><td><code>gretelai/gretel-math-gsm8k-v1</code></td><td>GSM8K style problems</td></tr>
+                            <tr><td>Open-Math-Instruct-2</td><td><code>nvidia/OpenMathInstruct-2</code></td><td>Open math instructions</td></tr>
+                            <tr><td>Stack-Math-QA</td><td><code>math-ai/StackMathQA</code></td><td>Stack Exchange math QA</td></tr>
+                            <tr><td>OpenR1-Math-220K</td><td><code>open-r1/OpenR1-Math-220k</code></td><td>Advanced math reasoning</td></tr>
+                            <tr><td>Natural-Reasoning</td><td><code>facebook/natural_reasoning</code></td><td>Natural language reasoning</td></tr>
+                            <tr><td>Math-Code-Instruct</td><td><code>MathLLMs/MathCodeInstruct</code></td><td>Math with code instructions</td></tr>
+                            <tr><td>Math-Code-Instruct-Plus</td><td><code>MathLLMs/MathCodeInstruct-Plus</code></td><td>Enhanced math-code instructions</td></tr>
+                            <tr><td>Open-Orca</td><td><code>Open-Orca/OpenOrca</code></td><td>General instruction following</td></tr>
+                            <tr><td>SlimOrca-Deduped-Cleaned-Corrected</td><td><code>Open-Orca/slimorca-deduped-cleaned-corrected</code></td><td>Cleaned instruction data</td></tr>
+                            <tr><td>Orca-AgentInstruct-1M-V1-Cleaned</td><td><code>mlabonne/orca-agentinstruct-1M-v1-cleaned</code></td><td>Agent instruction data</td></tr>
+                            <tr><td>FOL-NLI</td><td><code>tasksource/FOL-nli</code></td><td>First-order logic reasoning</td></tr>
+                            <tr><td>Infinity-Instruct</td><td><code>BAAI/Infinity-Instruct</code></td><td>Multi-domain instructions</td></tr>
+                            <tr><td>Llama-Nemotron-Post-Training-Dataset-V1</td><td><code>nvidia/Llama-Nemotron-Post-Training-Dataset-v1</code></td><td>Post-training dataset</td></tr>
+                            <tr><td>Codeforces-CoTs</td><td><code>open-r1/codeforces-cots</code></td><td>Competitive programming</td></tr>
+                            <tr><td>Reasoning-V1-20M</td><td><code>glaiveai/reasoning-v1-20m</code></td><td>Large-scale reasoning data</td></tr>
+                            <tr><td>Lean-STaR-Plus</td><td><code>ScalableMath/Lean-STaR-plus</code></td><td>Lean formal proofs (enhanced)</td></tr>
+                            <tr><td>Lean-STaR-Base</td><td><code>ScalableMath/Lean-STaR-base</code></td><td>Lean formal proofs (base)</td></tr>
+                            <tr><td>Lean-CoT-Plus</td><td><code>ScalableMath/Lean-CoT-plus</code></td><td>Lean chain-of-thought (enhanced)</td></tr>
+                            <tr><td>Lean-CoT-Base</td><td><code>ScalableMath/Lean-CoT-base</code></td><td>Lean chain-of-thought (base)</td></tr>
+                            <tr><td>Lean-Github</td><td><code>internlm/Lean-Github</code></td><td>Lean repository code</td></tr>
+                            <tr><td>Lean-Workbook</td><td><code>internlm/Lean-Workbook</code></td><td>Lean problem workbook</td></tr>
+                            <tr><td>DeepSeek-Prover-V1</td><td><code>deepseek-ai/DeepSeek-Prover-V1</code></td><td>Formal proof verification</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>🔄 Translation Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>UN-PC</td><td><code>Helsinki-NLP/un_pc</code></td><td>English-Chinese translation pairs</td></tr>
+                            <tr><td>UN-PC-Reverse</td><td><code>Helsinki-NLP/un_pc</code></td><td>Chinese-English translation pairs</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="title is-5" style="margin-top: 2rem;"><strong>📊 MegaMath Domain</strong></h4>
+                    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead><tr><th>Source</th><th>HuggingFace Dataset</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td>MegaMath-QA</td><td><code>LLM360/MegaMath</code></td><td>Large-scale mathematical QA</td></tr>
+                            <tr><td>MegaMath-Translated-Code</td><td><code>LLM360/MegaMath</code></td><td>Mathematical code translations</td></tr>
+                            <tr><td>MegaMath-Text-Code-Block</td><td><code>LLM360/MegaMath</code></td><td>Mixed math text and code blocks</td></tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="pipeline" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">Processing Pipeline</h2>
+                <div class="content">
+                    <h4>1. Data Extraction & Standardization</h4>
+<pre><code>{
+    "domain_prefix": "lbty.org",
+    "id": "117b6a7d-5126-41fe-9bc2-d276e98632e6",
+    "meta": "{\"domain\": \"dclm\", \"ori_score\": 0.043276190757751465, \"source\": \"dclm_baseline\"}",
+    "text": "Sabine Expedition\n\nThe Sabine Expedition was an expedition approved by the United States Congress in 1806...",
+    "tokens": 145,  # Token count using Qwen2.5 tokenizer
+    "url": "https://lbty.org/american-indian-battles/sabine-expedition/",
+    "score": 0.19072403013706207
+}</code></pre>
+                    <h4 style="margin-top: 2rem;">2. Three-Tier Deduplication</h4>
+                    <ul>
+                        <li><strong>🎯 Exact Deduplication</strong>
+                            <ul>
+                                <li>SHA256 content hashing</li>
+                                <li>Priority-based duplicate resolution</li>
+                                <li><strong>Result</strong>: ~30% exact duplicates removed</li>
+                            </ul>
+                        </li>
+                        <li><strong>🔄 Fuzzy Deduplication</strong>
+                            <ul>
+                                <li>MinHash Locality Sensitive Hashing (LSH)</li>
+                                <li>Jaccard similarity threshold: 0.9</li>
+                                <li>Connected components clustering</li>
+                                <li><strong>Result</strong>: ~20% near-duplicates removed</li>
+                            </ul>
+                        </li>
+                        <li><strong>🧠 Semantic Deduplication</strong>
+                            <ul>
+                                <li><code>Alibaba-NLP/gte-multilingual-base</code> embeddings</li>
+                                <li>K-means clustering (k=100,000)</li>
+                                <li>Cosine similarity threshold: 0.007</li>
+                                <li><strong>Result</strong>: ~10% semantic duplicates removed</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 2rem;">3. 🤖 AI Quality Assessment</h4>
+                    <p><strong>Qwen2-Based Classifier Architecture</strong>:</p>
+                    <ul>
+                        <li>Fine-tuned regression head for quality scoring</li>
+                        <li>Multi-source score normalization and fusion</li>
+                        <li>MSE loss with sigmoid activation</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 2rem;">4. 🧹 Advanced Text Cleaning</h4>
+                    <p>All text data was processed using <strong><a href="https://github.com/yifanzhang-pro/ultimate-data-cleaner" target="_blank" rel="noopener noreferrer">Ultimate Data Cleaner v7.5.0.5</a></strong>, which provides robust, high-performance cleaning tailored for web-scraped and scientific data.</p>
+                    <p><strong>Key Features Used:</strong></p>
+                    <ul>
+                        <li><strong>Advanced LaTeX & Code Protection</strong>: protect complex nested LaTeX environments (<code>\begin{}...\end{}</code>), inline math (<code>$...$</code>), commands, and markdown code fences.</li>
+                        <li><strong>Profile-Based Cleaning</strong>: Replaces boolean flags with streamlined profiles (<code>'light'</code>, <code>'medium'</code>, <code>'aggressive'</code>) for different cleaning intensities.</li>
+                        <li><strong>Quality Heuristics</strong>: Removes corrupted samples with excessive repetition, severe bracket imbalances, etc.</li>
+                    </ul>
+
+                    <h4 style="margin-top: 2rem;">5. 🛡️ Contamination Detection</h4>
+                    <p><strong>Test Set Protection</strong>:</p>
+                    <ul>
+                        <li>Math dataset test questions</li>
+                        <li>GSM8K evaluation problems</li>
+                        <li>Exact string matching with preprocessing</li>
+                        <li>Automatic filtering during data extraction</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="usage" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">How to Use</h2>
+                <div class="content">
+                    <h4>Loading with Datasets</h4>
+<pre><code>from datasets import load_dataset
+
+# Load full dataset
+dataset = load_dataset("OpenSQZ/AutoMathText-V2", streaming=True)
+
+# Load specific domain
+math_data = load_dataset("OpenSQZ/AutoMathText-V2", name="math_web", streaming=True)</code></pre>
+
+                    <h4 style="margin-top: 2rem;">💻 RefineCode Content Download</h4>
+                    <p><strong>Important</strong>: For the RefineCode domain, only metadata is included in the dataset. The actual code content was removed to reduce storage requirements. To access the full code content, use the <code>blob_id</code> field from the metadata to download from AWS S3:</p>
+<pre><code>import os
+import json
+import boto3
+from smart_open import open
+from datasets import load_dataset
+
+# Setup AWS credentials
+session = boto3.Session(
+    aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+    aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"]
+)
+s3 = session.client("s3")
+
+def download_code_content(blob_id, src_encoding):
+    """Download code content from AWS S3 using blob_id"""
+    s3_url = f"s3://softwareheritage/content/{blob_id}"
+    
+    try:
+        with open(s3_url, "rb", compression=".gz", transport_params={"client": s3}) as fin:
+            content = fin.read().decode(src_encoding)
+        return {"content": content}
+    except Exception as e:
+        return {"content": None, "error": str(e)}
+
+# Load RefineCode domain
+refinecode_data = load_dataset("OpenSQZ/AutoMathText-V2", name="refinecode", streaming=True)
+
+# Process each sample to download content
+for sample in refinecode_data:
+    # Parse metadata to extract blob_id and encoding
+    meta = json.loads(sample["meta"])
+    blob_id = meta.get("blob_id")
+    src_encoding = meta.get("src_encoding", "utf-8")
+    
+    if blob_id:
+        # Download the actual code content
+        code_data = download_code_content(blob_id, src_encoding)
+        
+        # Combine metadata with downloaded content
+        full_sample = {
+            **sample,
+            "code_content": code_data["content"]
+        }
+        
+        print(f"Downloaded content for {sample['id']}")
+        print(f"Content length: {len(code_data['content']) if code_data['content'] else 0}")
+        break</code></pre>
+                    <p><strong>Requirements</strong>:</p>
+                    <ul>
+                        <li>AWS credentials with access to Software Heritage S3 bucket</li>
+                        <li><code>smart_open</code> library: <code>pip install smart_open[s3]</code></li>
+                        <li><code>boto3</code> library: <code>pip install boto3</code></li>
+                    </ul>
+                    <p><strong>Note</strong>: This download method is required only for the RefineCode domain. All other domains contain the full text content directly in the dataset.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="structure" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">Dataset Structure & Configurations</h2>
+                <div class="content">
+                    <h4>Directory Structure</h4>
+                    <p>The dataset is organized by domain with quality-based token splits:</p>
+<pre><code>AutoMathText-V2/
+├── dclm/                 # DCLM baseline web content
+│   ├── 0-10/             # Bottom 10% quality tokens (score-based)
+│   ├── 10-20/            # 10-20% quality tokens
+│   ├── 20-30/            # 20-30% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── fineweb_edu/          # FineWeb educational content
+│   ├── ...
+│   └── 90-100/
+├── fineweb_edu_chinese/  # Chinese educational content
+│   ├── ...
+│   └── 90-100/
+├── math_web/             # Mathematics and scientific content
+│   ├── ...
+│   └── 90-100/
+├── megamath/             # Specialized math collections
+│   ├── ...
+│   └── 90-100/
+├── nemotron_cc_high/     # High quality Nemotron CommonCrawl
+│   ├── ...
+│   └── 90-100/
+├── nemotron_cc_medium_high/ # Medium-high quality Nemotron CommonCrawl
+│   ├── ...
+│   └── 90-100/
+├── reasoning_qa/         # Instruction and reasoning data
+│   ├── ...
+│   └── 90-100/
+├── refinecode/           # GitHub code repositories (Academic Use Only)
+│   ├── ...
+│   └── 90-100/
+└── translation/          # English-Chinese translation pairs
+    ├── ...
+    └── 90-100/</code></pre>
+
+                    <h4 style="margin-top: 2rem;">Quality-Based Token Distribution</h4>
+                    <p>Each domain is divided into <strong>10 quality percentiles</strong> (0-10, 10-20, ..., 90-100) based on:</p>
+                    <ul>
+                        <li><strong>Token count</strong>: Equal number of tokens per percentile bucket</li>
+                        <li><strong>Quality scores</strong>: AI classifier scores from Qwen2-based quality assessment</li>
+                        <li><strong>Percentile ranking</strong>: Higher percentiles contain higher quality content</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 2rem;">Available Configurations</h4>
+                    <ul>
+                        <li><strong>Domain-specific configs</strong>: Load individual domains (<code>dclm</code>, <code>fineweb_edu</code>, <code>math_web</code>, <code>reasoning_qa</code>, etc.)</li>
+                        <li><strong>Quality-filtered configs</strong>: Load specific quality ranges (e.g., <code>dclm/90-100</code> for top quality DCLM content)</li>
+                        <li><strong>Nemotron variants</strong>: Choose between <code>nemotron_cc_high</code> and <code>nemotron_cc_medium_high</code> based on quality needs</li>
+                        <li><strong>Combined configs</strong>: Mix domains and quality levels based on training requirements</li>
+                        <li><strong>Custom sampling</strong>: Select percentile ranges across multiple domains for balanced training</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 2rem;">Language Distribution</h4>
+                    <ul>
+                        <li><strong>English</strong>: ~95% of content</li>
+                        <li><strong>Chinese</strong>: ~5% of content</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contributing" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">Deep Dive & Contributing</h2>
+                <div class="content" style="max-width: 800px; margin: 0 auto;">
+                    <h4>🔬 Technical Deep Dive</h4>
+                    <p>For detailed technical documentation, including processing pipeline specifications, deduplication algorithm details, quality classifier training procedures, and contamination detection methodology, please refer to our <a href="https://github.com/iiis-ai/AutoMathText-V2" target="_blank" rel="noopener noreferrer">Technical Documentation</a> and <a href="https://github.com/iiis-ai/AutoMathText-V2" target="_blank" rel="noopener noreferrer">GitHub Repository</a>.</p>
+
+                    <h4 style="margin-top: 2rem;">🤝 Contributing</h4>
+                    <p>We welcome contributions to improve dataset quality and processing techniques:</p>
+                    <ul>
+                        <li>🐛 <strong>Bug Reports</strong>: Issues with data quality or processing</li>
+                        <li>💡 <strong>Feature Requests</strong>: New data sources or processing improvements</li>
+                        <li>📚 <strong>Documentation</strong>: Help improve our guides and examples</li>
+                        <li>🔬 <strong>Research</strong>: Collaborate on quality assessment and deduplication methods</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="citation" class="section content-section">
+            <div class="container">
+                <h2 class="title is-3 has-text-centered section-title">Licensing & Citation</h2>
+                <div class="content">
+                    <h4 id="license">License</h4>
+                    <p>Released under <strong>AutoMathText Data Agreement for Model Training</strong> (See <a href="https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a>).</p>
+                    
+                    <h4 style="margin-top: 2rem;">Citation</h4>
+<pre><code>@misc{automathtext_v2_2025,
+  title         = {AutoMathText-V2: A 2.46 Trillion Token AI-Curated STEM Pretraining Dataset},
+  author        = {Chao Li and Yifan Zhang},
+  year          = {2025},
+  publisher     = {Hugging Face},
+  url           = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
+  note          = {A 2.46T token multi-domain dataset with fine-grained deduplication and AI-powered quality assessment.}
+}
+
+@article{zhang2025autonomous,
+  title={Autonomous Data Selection with Zero-shot Generative Classifiers for Mathematical Texts},
+  author={Zhang, Yifan and Luo, Yifan and Yuan, Yang and Yao, Andrew C},
+  journal={The 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025 Findings)},
+  year={2025}
+}</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <a href="#features">Features</a> &nbsp;&bull;&nbsp;
+                    <a href="#composition">Composition</a> &nbsp;&bull;&nbsp;
+                    <a href="#pipeline">Pipeline</a> &nbsp;&bull;&nbsp;
+                    <a href="#usage">Usage</a> &nbsp;&bull;&nbsp;
+                    <a href="#structure">Structure</a> &nbsp;&bull;&nbsp;
+                    <a href="#citation">Citation</a>
+                </p>
+                <p>
+                    &copy; 2025 AutoMathText Team. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for the mobile navbar toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach( el => {
+                    el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
+                    });
+                });
+            }
+
+            // Function to convert hex to rgb for rgba() usage
+            function hexToRgb(hex) {
+                let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : null;
+            }
+
+            // Set RGB versions of colors for use in rgba()
+            const root = document.documentElement;
+            const styles = getComputedStyle(root);
+            const primaryColor = styles.getPropertyValue('--primary-color').trim();
+            const linkColor = styles.getPropertyValue('--link-color').trim();
+
+            const primaryRgb = hexToRgb(primaryColor);
+            if (primaryRgb) {
+                root.style.setProperty('--primary-color-rgb', `${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}`);
+            }
+
+            const linkRgb = hexToRgb(linkColor);
+            if (linkRgb) {
+                 root.style.setProperty('--link-color-rgb', `${linkRgb.r}, ${linkRgb.g}, ${linkRgb.b}`);
+            }
+        });
+    </script>
+
+</body>
+</html>
