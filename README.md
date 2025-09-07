@@ -374,7 +374,7 @@ Released under **Apache 2.0 License** for maximum accessibility and research use
   year         = {2025},
   publisher    = {Hugging Face},
   url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
-  note         = {A 2.46T token multi-domain dataset with three-tier (exact, fuzzy, and semantic) deduplication and AI-powered quality assessment.}
+  note         = {A 2.46T token multi-domain dataset with fine-grained deduplication and AI-powered quality assessment.}
 }
 
 @article{zhang2025autonomous,
