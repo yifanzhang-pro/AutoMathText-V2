@@ -187,7 +187,6 @@ All text data was processed using **Ultimate Data Cleaner v7.5.0.5**, which prov
 **Key Features Used:**
 
   - **Advanced LaTeX & Code Protection**: protect complex nested LaTeX environments (`\begin{}...\end{}`), inline math (`$...$`), commands, and markdown code fences. 
-  - **Profile-Based Cleaning**: Replaces boolean flags with streamlined profiles (`'light'`, `'medium'`, `'aggressive'`) for different cleaning intensities. 
   - **Quality Heuristics**: Removes corrupted samples with excessive repetition, severe bracket imbalances, etc. 
 
 ### 5\. **🛡️ Contamination Detection**
