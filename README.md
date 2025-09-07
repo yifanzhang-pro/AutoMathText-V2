@@ -3,7 +3,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
 [![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-CCBYSA4.0-yellow.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)
-[![Website](https://img.shields.io/badge/Project-Website-green)](https://github.com/iiis-ai/AutoMathText-V2) 
+[![Website](https://img.shields.io/badge/Project-Website-green)](https://github.com/iiis-ai/AutoMathText-V2) 
 
 📊 **AutoMathText-V2** consists of **2.46 trillion tokens** of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a **three-tier deduplication pipeline** and **AI-powered quality assessment** to provide superior training data for large language models.
 
@@ -12,10 +12,11 @@ Our dataset combines **50+ premium data sources** with advanced processing techn
 
 ## 🎯 What makes AutoMathText-V2 special?
 
-- **🔍 Triple Deduplication**: Exact → Fuzzy (MinHash+LSH) → Semantic (GTE embeddings)
-- **🤖 AI Quality Assessment**: Qwen2-based classifier with multi-source score fusion
-- **🛡️ Contamination Prevention**: Automatic test set leak detection and removal
-- **🌏 Bilingual Optimization**: Specially optimized for Chinese and English content
+- **🔍 Triple Deduplication**: Exact → Fuzzy (MinHash+LSH) → Semantic (GTE embeddings) 
+- **🤖 AI Quality Assessment**: Qwen2-based classifier with multi-source score fusion 
+- **🔢 STEM Concentration**: Specially optimized for STEM content (especially math) 
+- **🛡️ Contamination Prevention**: Automatic test set leak detection and removal 
+- **🧹 Advanced Text Cleaning**: All text data was processed using **Ultimate Data Cleaner v7.5.0.5**, which provides robust, high-performance cleaning tailored for web-scraped and scientific data. 
 
 ## 📚 Dataset Composition
 
@@ -66,7 +67,7 @@ Our dataset combines **50+ premium data sources** with advanced processing techn
 |--------|-------------------|-------------|
 | Nemotron-CC (High) | `nvidia/nemotron-cc` | High-quality CommonCrawl subset |
 
-#### **⭐ Nemotron CC Medium-High Domain** 
+#### **⭐ Nemotron CC Medium-High Domain** 
 | Source | HuggingFace Dataset | Description |
 |--------|-------------------|-------------|
 | Nemotron-CC (Medium-High) | `nvidia/nemotron-cc` | Medium-high quality CommonCrawl subset |
@@ -140,69 +141,69 @@ Our dataset combines **50+ premium data sources** with advanced processing techn
 ### 1. **Data Extraction & Standardization**
 ```python
 {
-    "domain_prefix": "lbty.org",
-    "id": "117b6a7d-5126-41fe-9bc2-d276e98632e6",
-    "meta": "{\"domain\": \"dclm\", \"ori_score\": 0.043276190757751465, \"source\": \"dclm_baseline\"}",
-    "text": "Sabine Expedition\n\nThe Sabine Expedition was an expedition approved by the United States Congress in 1806...",
-    "tokens": 145,  # Token count using Qwen2.5 tokenizer
-    "url": "https://lbty.org/american-indian-battles/sabine-expedition/",
-    "score": 0.19072403013706207
+    "domain_prefix": "lbty.org",
+    "id": "117b6a7d-5126-41fe-9bc2-d276e98632e6",
+    "meta": "{\"domain\": \"dclm\", \"ori_score\": 0.043276190757751465, \"source\": \"dclm_baseline\"}",
+    "text": "Sabine Expedition\n\nThe Sabine Expedition was an expedition approved by the United States Congress in 1806...",
+    "tokens": 145,  # Token count using Qwen2.5 tokenizer
+    "url": "[https://lbty.org/american-indian-battles/sabine-expedition/](https://lbty.org/american-indian-battles/sabine-expedition/)",
+    "score": 0.19072403013706207
 }
-```
+````
 
-### 2. **Three-Tier Deduplication**
+### 2\. **Three-Tier Deduplication**
 
 #### 🎯 **Exact Deduplication**
-- SHA256 content hashing
-- Priority-based duplicate resolution
-- **Result**: ~30% exact duplicates removed
 
-#### 🔄 **Fuzzy Deduplication** 
-- MinHash Locality Sensitive Hashing (LSH)
-- Jaccard similarity threshold: 0.9
-- Connected components clustering
-- **Result**: ~20% near-duplicates removed
+  - SHA256 content hashing
+  - Priority-based duplicate resolution
+  - **Result**: \~30% exact duplicates removed
+
+#### 🔄 **Fuzzy Deduplication** 
+
+  - MinHash Locality Sensitive Hashing (LSH)
+  - Jaccard similarity threshold: 0.9
+  - Connected components clustering
+  - **Result**: \~20% near-duplicates removed
 
 #### 🧠 **Semantic Deduplication**
-- `Alibaba-NLP/gte-multilingual-base` embeddings
-- K-means clustering (k=100,000)  
-- Cosine similarity threshold: 0.007
-- **Result**: ~10% semantic duplicates removed
 
-### 3. **🤖 AI Quality Assessment**
+  - `Alibaba-NLP/gte-multilingual-base` embeddings
+  - K-means clustering (k=100,000)  
+  - Cosine similarity threshold: 0.007
+  - **Result**: \~10% semantic duplicates removed
+
+### 3\. **🤖 AI Quality Assessment**
 
 **Qwen2-Based Classifier Architecture**:
-- Fine-tuned regression head for quality scoring
-- Multi-source score normalization and fusion
-- MSE loss with sigmoid activation
 
+  - Fine-tuned regression head for quality scoring
+  - Multi-source score normalization and fusion
+  - MSE loss with sigmoid activation
 
-### 4. **🧹 Advanced Text Cleaning**
+### 4\. **🧹 Advanced Text Cleaning**
 
-**Ultimate Data Cleaner v6.23.2 Features**:
+All text data was processed using **Ultimate Data Cleaner v7.5.0.5**, which provides robust, high-performance cleaning tailored for web-scraped and scientific data.
 
-- **Encoding Repair & Corruption Filtering**: ftfy-powered mojibake detection and fixing (handles `锟斤拷` and other corruption), plus removal of documents with irreparable encoding issues
-- **LaTeX Protection**: Preserve mathematical formulas (`$$...$$`, `$...$`) and LaTeX commands while cleaning
-- **Code Protection**: Safeguard preprocessor directives (`#include`, `#define`) and decorators (`@override`, `@pytest.mark`)
-- **Smart Social Media Filtering**: Remove hashtags and mentions while preserving technical content and emails
-- **URL Normalization**: Extract domains while preserving context (`https://example.com/path` → `example.com`)
-- **Document Artifact Removal**: Filter PDF headers, boilerplate text, lorem ipsum, and table of contents
-- **Quality Heuristics**: Remove corrupted samples with excessive repetition, bracket imbalances, or binary data
-- **Bilingual Support**: Specialized Chinese text processing and Unicode normalization
-- **Whitespace Standardization**: Convert unusual Unicode spaces to standard ASCII spaces
+**Key Features Used:**
 
-### 5. **🛡️ Contamination Detection**
+  - **Advanced LaTeX & Code Protection**: protect complex nested LaTeX environments (`\begin{}...\end{}`), inline math (`$...$`), commands, and markdown code fences. 
+  - **Profile-Based Cleaning**: Replaces boolean flags with streamlined profiles (`'light'`, `'medium'`, `'aggressive'`) for different cleaning intensities. 
+  - **Quality Heuristics**: Removes corrupted samples with excessive repetition, severe bracket imbalances, etc. 
+
+### 5\. **🛡️ Contamination Detection**
 
 **Test Set Protection**:
-- Math dataset test questions
-- GSM8K evaluation problems  
-- Exact string matching with preprocessing
-- Automatic filtering during data extraction
 
+  - Math dataset test questions
+  - GSM8K evaluation problems  
+  - Exact string matching with preprocessing
+  - Automatic filtering during data extraction
 
 ## 🚀 How to Use
 
 ### Loading with Datasets
+
 ```python
 from datasets import load_dataset
 
@@ -226,161 +227,171 @@ from datasets import load_dataset
 
 # Setup AWS credentials
 session = boto3.Session(
-    aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-    aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"]
+    aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+    aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"]
 )
 s3 = session.client("s3")
 
 def download_code_content(blob_id, src_encoding):
-    """Download code content from AWS S3 using blob_id"""
-    s3_url = f"s3://softwareheritage/content/{blob_id}"
-    
-    try:
-        with open(s3_url, "rb", compression=".gz", transport_params={"client": s3}) as fin:
-            content = fin.read().decode(src_encoding)
-        return {"content": content}
-    except Exception as e:
-        return {"content": None, "error": str(e)}
+    """Download code content from AWS S3 using blob_id"""
+    s3_url = f"s3://softwareheritage/content/{blob_id}"
+    
+    try:
+        with open(s3_url, "rb", compression=".gz", transport_params={"client": s3}) as fin:
+            content = fin.read().decode(src_encoding)
+        return {"content": content}
+    except Exception as e:
+        return {"content": None, "error": str(e)}
 
 # Load RefineCode domain
 refinecode_data = load_dataset("OpenSQZ/AutoMathText-V2", name="refinecode", streaming=True)
 
 # Process each sample to download content
 for sample in refinecode_data:
-    # Parse metadata to extract blob_id and encoding
-    meta = json.loads(sample["meta"])
-    blob_id = meta.get("blob_id")
-    src_encoding = meta.get("src_encoding", "utf-8")
-    
-    if blob_id:
-        # Download the actual code content
-        code_data = download_code_content(blob_id, src_encoding)
-        
-        # Combine metadata with downloaded content
-        full_sample = {
-            **sample,
-            "code_content": code_data["content"]
-        }
-        
-        print(f"Downloaded content for {sample['id']}")
-        print(f"Content length: {len(code_data['content']) if code_data['content'] else 0}")
-        break
+    # Parse metadata to extract blob_id and encoding
+    meta = json.loads(sample["meta"])
+    blob_id = meta.get("blob_id")
+    src_encoding = meta.get("src_encoding", "utf-8")
+    
+    if blob_id:
+        # Download the actual code content
+        code_data = download_code_content(blob_id, src_encoding)
+        
+        # Combine metadata with downloaded content
+        full_sample = {
+            **sample,
+            "code_content": code_data["content"]
+        }
+        
+        print(f"Downloaded content for {sample['id']}")
+        print(f"Content length: {len(code_data['content']) if code_data['content'] else 0}")
+        break
 ```
 
 **Requirements**:
-- AWS credentials with access to Software Heritage S3 bucket
-- `smart_open` library: `pip install smart_open[s3]`
-- `boto3` library: `pip install boto3`
+
+  - AWS credentials with access to Software Heritage S3 bucket
+  - `smart_open` library: `pip install smart_open[s3]`
+  - `boto3` library: `pip install boto3`
 
 **Note**: This download method is required only for the RefineCode domain. All other domains contain the full text content directly in the dataset.
 
 ## 🌐 Dataset Structure & Configurations
 
 ### Directory Structure
+
 The dataset is organized by domain with quality-based token splits:
 
 ```
 AutoMathText-V2/
-├── dclm/                  # DCLM baseline web content
-│   ├── 0-10/             # Bottom 10% quality tokens (score-based)
-│   ├── 10-20/            # 10-20% quality tokens
-│   ├── 20-30/            # 20-30% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── fineweb_edu/           # FineWeb educational content
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── 10-20/            # 10-20% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── fineweb_edu_chinese/   # Chinese educational content
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── math_web/              # Mathematics and scientific content
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── megamath/              # Specialized math collections
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── nemotron_cc_high/      # High quality Nemotron CommonCrawl
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
+├── dclm/                  # DCLM baseline web content
+│   ├── 0-10/             # Bottom 10% quality tokens (score-based)
+│   ├── 10-20/            # 10-20% quality tokens
+│   ├── 20-30/            # 20-30% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── fineweb_edu/           # FineWeb educational content
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── 10-20/            # 10-20% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── fineweb_edu_chinese/   # Chinese educational content
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── math_web/              # Mathematics and scientific content
+│   ├── 0-10/  .          # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── megamath/              # Specialized math collections
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── nemotron_cc_high/      # High quality Nemotron CommonCrawl
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
 ├── nemotron_cc_medium_high/ # Medium-high quality Nemotron CommonCrawl
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── reasoning_qa/          # Instruction and reasoning data
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-├── refinecode/            # GitHub code repositories (Academic Use Only)
-│   ├── 0-10/             # Bottom 10% quality tokens
-│   ├── ...               # Additional percentile ranges
-│   └── 90-100/           # Top 10% highest quality tokens
-└── translation/           # English-Chinese translation pairs
-    ├── 0-10/             # Bottom 10% quality tokens
-    ├── ...               # Additional percentile ranges
-    └── 90-100/           # Top 10% highest quality tokens
+│   ├── 0-10/            . # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── reasoning_qa/          # Instruction and reasoning data
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+├── refinecode/            # GitHub code repositories (Academic Use Only)
+│   ├── 0-10/             # Bottom 10% quality tokens
+│   ├── ...               # Additional percentile ranges
+│   └── 90-100/           # Top 10% highest quality tokens
+└── translation/           # English-Chinese translation pairs
+    ├── 0-10/             # Bottom 10% quality tokens
+    ├── ...               # Additional percentile ranges
+    └── 90-100/           # Top 10% highest quality tokens
 ```
 
 ### Quality-Based Token Distribution
+
 Each domain is divided into **10 quality percentiles** (0-10, 10-20, ..., 90-100) based on:
-- **Token count**: Equal number of tokens per percentile bucket
-- **Quality scores**: AI classifier scores from Qwen2-based quality assessment
-- **Percentile ranking**: Higher percentiles contain higher quality content
+
+  - **Token count**: Equal number of tokens per percentile bucket
+  - **Quality scores**: AI classifier scores from Qwen2-based quality assessment
+  - **Percentile ranking**: Higher percentiles contain higher quality content
 
 ### Available Configurations
-- **Domain-specific configs**: Load individual domains (`dclm`, `fineweb_edu`, `math_web`, `reasoning_qa`, etc.)
-- **Quality-filtered configs**: Load specific quality ranges (e.g., `dclm/90-100` for top quality DCLM content)
-- **Nemotron variants**: Choose between `nemotron_cc_high` and `nemotron_cc_medium_high` based on quality needs
-- **Combined configs**: Mix domains and quality levels based on training requirements
-- **Custom sampling**: Select percentile ranges across multiple domains for balanced training
+
+  - **Domain-specific configs**: Load individual domains (`dclm`, `fineweb_edu`, `math_web`, `reasoning_qa`, etc.)
+  - **Quality-filtered configs**: Load specific quality ranges (e.g., `dclm/90-100` for top quality DCLM content)
+  - **Nemotron variants**: Choose between `nemotron_cc_high` and `nemotron_cc_medium_high` based on quality needs
+  - **Combined configs**: Mix domains and quality levels based on training requirements
+  - **Custom sampling**: Select percentile ranges across multiple domains for balanced training
 
 ### Language Distribution
-- **English**: ~95% of content
-- **Chinese**: ~5% of content
+
+  - **English**: \~95% of content
+  - **Chinese**: \~5% of content
 
 ## 🔬 Technical Deep Dive
 
 For detailed technical documentation, including:
-- Complete processing pipeline specifications  
-- Deduplication algorithm details
-- Quality classifier training procedures
-- Contamination detection methodology
+
+  - Complete processing pipeline specifications  
+  - Deduplication algorithm details
+  - Quality classifier training procedures
+  - Contamination detection methodology
 
 Please refer to our [Technical Documentation](https://github.com/iiis-ai/AutoMathText-V2) and [GitHub Repository](https://github.com/iiis-ai/AutoMathText-V2).
 
 ## 🤝 Contributing
 
 We welcome contributions to improve dataset quality and processing techniques:
-- 🐛 **Bug Reports**: Issues with data quality or processing
-- 💡 **Feature Requests**: New data sources or processing improvements  
-- 📚 **Documentation**: Help improve our guides and examples
-- 🔬 **Research**: Collaborate on quality assessment and deduplication methods
+
+  - 🐛 **Bug Reports**: Issues with data quality or processing
+  - 💡 **Feature Requests**: New data sources or processing improvements  
+  - 📚 **Documentation**: Help improve our guides and examples
+  - 🔬 **Research**: Collaborate on quality assessment and deduplication methods
 
 ## 📜 Licensing & Citation
 
 ### License
-Released under **Apache 2.0 License** for maximum accessibility and research use. 
+
+Released under **Apache 2.0 License** for maximum accessibility and research use. 
 
 ### Citation
+
 ```bibtex
 @misc{automathtext_v2_2025,
-  title        = {{AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset}},
-  author       = {Chao Li and Yifan Zhang},
-  year         = {2025},
-  publisher    = {Hugging Face},
-  url          = {https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2},
-  note         = {A 2.46T token multi-domain dataset with fine-grained deduplication and AI-powered quality assessment.}
+  title        = {{AutoMathText-V2: A Multi-Domain High-Quality Pretraining Dataset}},
+  author       = {Chao Li and Yifan Zhang},
+  year         = {2025},
+  publisher    = {Hugging Face},
+  url          = {[https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2](https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2)},
+  note         = {A 2.46T token multi-domain dataset with fine-grained deduplication and AI-powered quality assessment.}
 }
 
 @article{zhang2025autonomous,
-  title={Autonomous Data Selection with Zero-shot Generative Classifiers for Mathematical Texts},
-  author={Zhang, Yifan and Luo, Yifan and Yuan, Yang and Yao, Andrew C},
-  journal={The 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025 Findings)},
-  year={2025}
+  title={Autonomous Data Selection with Zero-shot Generative Classifiers for Mathematical Texts},
+  author={Zhang, Yifan and Luo, Yifan and Yuan, Yang and Yao, Andrew C},
+  journal={The 63rd Annual Meeting of the Association for Computational Linguistics (ACL 2025 Findings)},
+  year={2025}
 }
 ```
