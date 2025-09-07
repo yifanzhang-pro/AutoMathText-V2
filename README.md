@@ -9,7 +9,6 @@
 
 Our dataset combines **50+ premium data sources** with advanced processing techniques including **semantic deduplication**, **contamination detection**, and **intelligent text cleaning** to deliver exceptional model performance across diverse domains.
 
-
 ## 🎯 What makes AutoMathText-V2 special?
 
 - **🔢 STEM Concentration**: Specially optimized for STEM content (especially Math) 
