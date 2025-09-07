@@ -374,7 +374,7 @@ We welcome contributions to improve dataset quality and processing techniques:
 
 ### License
 
-Released under **AutoMathText Data Agreement for Model Training** (See [LICENSE](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)). 
+Released under **AutoMathText Team Data Agreement for Model Training** (See [LICENSE](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)). 
 
 ### Citation
 
