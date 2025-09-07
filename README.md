@@ -8,7 +8,7 @@
 
 📊 **AutoMathText-V2** consists of **2.46 trillion tokens** of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a **three-tier deduplication pipeline** and **AI-powered quality assessment** to provide superior training data for large language models.
 
-Our dataset combines **50+ premium data sources** with advanced processing techniques including **semantic deduplication**, **contamination detection**, and **intelligent text cleaning** to deliver exceptional model performance across diverse domains.
+Our dataset combines **50+ premium data sources** with advanced processing techniques, including **semantic deduplication**, **contamination detection**, and **intelligent text cleaning** to deliver exceptional model performance across diverse domains.
 
 ## 🎯 What makes AutoMathText-V2 special?
 
