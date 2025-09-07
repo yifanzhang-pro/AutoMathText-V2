@@ -12,11 +12,11 @@ Our dataset combines **50+ premium data sources** with advanced processing techn
 
 ## 🎯 What makes AutoMathText-V2 special?
 
+- **🔢 STEM Concentration**: Specially optimized for STEM content (especially Math) 
 - **🔍 Triple Deduplication**: Exact → Fuzzy (MinHash+LSH) → Semantic (GTE embeddings) 
 - **🤖 AI Quality Assessment**: Qwen2-based classifier with multi-source score fusion 
-- **🔢 STEM Concentration**: Specially optimized for STEM content (especially math) 
-- **🛡️ Contamination Prevention**: Automatic test set leak detection and removal 
 - **🧹 Advanced Text Cleaning**: All text data was processed using **Ultimate Data Cleaner v7.5.0.5**, which provides robust, high-performance cleaning tailored for web-scraped and scientific data. 
+- **🛡️ Contamination Prevention**: Automatic test set leak detection and removal 
 
 ## 📚 Dataset Composition
 
