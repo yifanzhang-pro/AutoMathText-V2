@@ -3,7 +3,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2402.07625-b31b1b.svg)](https://arxiv.org/abs/2402.07625)
 [![Website](https://img.shields.io/badge/Project-Website-green)](https://iiis-ai.github.io/AutoMathText-V2) 
 [![Technical Report](https://img.shields.io/badge/Technical-Report-blue)](https://iiis-ai.github.io/AutoMathText-V2/AutoMathText-V2.pdf)
-[![License: CC-BY-SA-4.0](https://img.shields.io/badge/License-AutoMathText-yellow.svg)](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)
+[![License: AutoMathText](https://img.shields.io/badge/License-AutoMathText-yellow.svg)](https://github.com/iiis-ai/AutoMathText-V2/blob/master/LICENSE)
 [![AutoMathText-V2](https://img.shields.io/badge/Huggingface-Datasets-blue)](https://huggingface.co/datasets/OpenSQZ/AutoMathText-V2) 
 
 📊 **AutoMathText-V2** consists of **2.46 trillion tokens** of high-quality, deduplicated text spanning web content, mathematics, code, reasoning, and bilingual data. This dataset was meticulously curated using a **three-tier deduplication pipeline** and **AI-powered quality assessment** to provide superior training data for large language models.
